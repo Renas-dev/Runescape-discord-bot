@@ -24,5 +24,11 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send('Pong!')
 
+
+@bot.command()
+async def meow(ctx):
+    await ctx.send('meow meow!!')
+
+
 # Run the bot with the token
 bot.run(TOKEN)
