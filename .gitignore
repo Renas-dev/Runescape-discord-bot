@@ -164,3 +164,4 @@ cython_debug/
 # Custom entries
 .env
 .venv/
+.idea/
