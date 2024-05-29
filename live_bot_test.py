@@ -92,6 +92,7 @@ def find_next_special_event(local_current_time):
     return local_first_event_time, first_event
 
 
+# Modified background_task for testing
 async def background_task():
     await bot.wait_until_ready()
     your_id = "522493027424403456"
@@ -100,17 +101,11 @@ async def background_task():
     while not bot.is_closed():
         now = datetime.now()
         next_event_time, next_event = find_next_special_event(now)
-        # Calculate the time difference to the next event
-        time_to_next_event = next_event_time - now
-        # If the next event is within the next 5 minutes, send a reminder
-        if 0 < time_to_next_event.total_seconds() <= 300:
-            await channel.send(
-                f"<@{your_id}>, **a special event {next_event[0]} is happening in 5 minutes! double check here :** https://runescape.wiki/w/Wilderness_Flash_Events"
-            )
-            await asyncio.sleep(60)  # Wait for a minute before checking again
-        else:
-            await asyncio.sleep(60)  # Check every minute
-        await asyncio.sleep(1)
+        # For testing: force a ping as if the event is happening in 5 minutes
+        await channel.send(
+            f"<@{your_id}>, a special event ({next_event[0]}) is happening in 5 minutes!"
+        )
+        await asyncio.sleep(60)  # Wait for a minute before checking again
 
 
 if __name__ == "__main__":
