@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import requests
 from bs4 import BeautifulSoup
 from functions.utils import find_next_special_event
+import json
 
 
 def register_commands(bot):
@@ -88,3 +89,42 @@ def register_commands(bot):
         except requests.exceptions.RequestException as e:
             await ctx.send(f"Failed to retrieve data: {e}")
 
+    @bot.command()
+    async def merchant(ctx):
+        user_agent = "discord-bot-daily-merchant-rotation"
+        url = "https://runescape.wiki/api.php?format=json&action=parse&prop=text&disablelimitreport=1&text={{Travelling%20Merchant/api|format=json}}"
+
+        try:
+            response = requests.get(url, headers={"User-Agent": user_agent})
+            response.raise_for_status()
+
+            data = response.json()
+            parse_text = data["parse"]["text"]["*"]
+            soup = BeautifulSoup(parse_text, 'html.parser')
+
+            # Extract the JSON string from the HTML content
+            json_str = soup.find("p").text.strip()
+
+            # Parse the JSON data
+            merchant_data = json.loads(json_str)
+            items = merchant_data["items"]
+
+            # Build the merchant loot message
+            merchant_loot = []
+            for item in items:
+                item_name = item["name"]
+                item_cost = item["cost"]
+                merchant_loot.append(f"**{item_name}**: {item_cost} coins")
+
+            merchant_loot_text = "\n".join(merchant_loot) if merchant_loot else "No merchant loot found."
+
+            embed = discord.Embed(
+                title="**Daily Merchant Loot**",
+                color=discord.Color.blue()
+            )
+            embed.add_field(name="**Today's Loot**", value=merchant_loot_text, inline=False)
+
+            await ctx.send(embed=embed)
+
+        except requests.exceptions.RequestException as e:
+            await ctx.send(f"Failed to retrieve data: {e}")

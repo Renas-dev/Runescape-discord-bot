@@ -1,0 +1,309 @@
+<div class="mw-parser-output">
+ <div class="slotB slotC">
+  <span class="slotA">
+   <span class="name">
+    Menaphite gift offering (small)
+   </span>
+   <span class="cost">
+    100000
+   </span>
+   <span class="quantity">
+    1
+   </span>
+   <span class="use">
+    Variety of rewards, see page.
+   </span>
+  </span>
+  <span class="name">
+   Menaphite gift offering (small)
+  </span>
+  <span class="cost">
+   100000
+  </span>
+  <span class="quantity">
+   1
+  </span>
+  <span class="use">
+   Variety of rewards, see page.
+  </span>
+  <span class="name">
+   Deathtouched dart
+  </span>
+  <span class="cost">
+   5000000
+  </span>
+  <span class="quantity">
+   1
+  </span>
+  <span class="use">
+   Insta-kill majority of all
+   <a href="/w/Monster" title="Monster">
+    monsters
+   </a>
+   .
+  </span>
+ </div>
+ <div class="clear-template clear-both" style="clear:both;">
+ </div>
+ <div class="documentation">
+  <div class="documentation-header">
+   <span class="documentation-title">
+    Template documentation
+   </span>
+  </div>
+  <div class="documentation-subheader">
+   <span class="documentation-documentation">
+    This documentation is transcluded from
+    <a href="/w/Template:Travelling_Merchant/api/doc" title="Template:Travelling Merchant/api/doc">
+     Template:Travelling Merchant/api/doc
+    </a>
+    .
+   </span>
+   <span class="documentation-links plainlinks">
+    [
+    <a class="text" href="https://runescape.wiki/w/Template:Travelling_Merchant/api/doc?action=edit">
+     edit
+    </a>
+    ] [
+    <a class="text" href="https://runescape.wiki/w/Template:Travelling_Merchant/api/doc?action=history">
+     history
+    </a>
+    ] [
+    <span class="jsPurgeLink">
+     <a class="text" href="https://runescape.wiki/w/Template:Travelling_Merchant/api?action=purge">
+      purge
+     </a>
+    </span>
+    ]
+   </span>
+  </div>
+  <div class="documentation-content">
+   <div class="seealso">
+    <b>
+     Template:Travelling Merchant/api
+    </b>
+    invokes function
+    <b>
+     api
+    </b>
+    in
+    <a href="/w/Module:Rotations/Merchant" title="Module:Rotations/Merchant">
+     Module:Rotations/Merchant
+    </a>
+    using
+    <a href="/w/RuneScape:Lua" title="RuneScape:Lua">
+     Lua
+    </a>
+    .
+   </div>
+   <p>
+    A simple API to fetch merchant data. Returns either a set of div containing spans of information, an encoded JSON string, or a simple string formatted
+    <code>
+     @slot a name¦slot b name¦slot c name@
+    </code>
+    .
+   </p>
+   <h2>
+    <span class="mw-headline" id="Usage">
+     Usage
+    </span>
+   </h2>
+   <dl>
+    <dt>
+     Data for today
+    </dt>
+   </dl>
+   <pre>{{Travelling Merchant/api}}</pre>
+   <div class="slotB slotC">
+    <span class="slotA">
+     <span class="name">
+      Menaphite gift offering (small)
+     </span>
+     <span class="cost">
+      100000
+     </span>
+     <span class="quantity">
+      1
+     </span>
+     <span class="use">
+      Variety of rewards, see page.
+     </span>
+    </span>
+    <span class="name">
+     Menaphite gift offering (small)
+    </span>
+    <span class="cost">
+     100000
+    </span>
+    <span class="quantity">
+     1
+    </span>
+    <span class="use">
+     Variety of rewards, see page.
+    </span>
+    <span class="name">
+     Deathtouched dart
+    </span>
+    <span class="cost">
+     5000000
+    </span>
+    <span class="quantity">
+     1
+    </span>
+    <span class="use">
+     Insta-kill majority of all
+     <a href="/w/Monster" title="Monster">
+      monsters
+     </a>
+     .
+    </span>
+   </div>
+   <dl>
+    <dt>
+     Data for 5 days after today
+    </dt>
+   </dl>
+   <pre>{{Travelling Merchant/api|offset=5}}</pre>
+   <p>
+    Also supports negative numbers for days before today.
+   </p>
+   <div class="slotB slotC">
+    <span class="slotA">
+     <span class="name">
+      Unfocused damage enhancer
+     </span>
+     <span class="cost">
+      500000
+     </span>
+     <span class="quantity">
+      1
+     </span>
+     <span class="use">
+      Allows choice of any damage enhancer at the cost of lower charges.
+     </span>
+    </span>
+    <span class="name">
+     Gift for the Reaper
+    </span>
+    <span class="cost">
+     1250000
+    </span>
+    <span class="quantity">
+     1
+    </span>
+    <span class="use">
+     20
+     <a href="/w/Reaper_points" title="Reaper points">
+      Reaper points
+     </a>
+     .
+    </span>
+    <span class="name">
+     Message in a bottle (Deep Sea Fishing)
+    </span>
+    <span class="cost">
+     200000
+    </span>
+    <span class="quantity">
+     1
+    </span>
+    <span class="use">
+     One-time choice between three
+     <a href="/w/Deep_Sea_Fishing" title="Deep Sea Fishing">
+      Deep Sea Fishing
+     </a>
+     boosts.
+    </span>
+   </div>
+   <dl>
+    <dt>
+     Data in an even simpler format
+    </dt>
+   </dl>
+   <pre>{{Travelling Merchant/api|format=simple}}</pre>
+   <p>
+    @Menaphite gift offering (small)¦Menaphite gift offering (small)¦Deathtouched dart@
+   </p>
+   <dl>
+    <dt>
+     Data in json
+    </dt>
+   </dl>
+   <pre>{{Travelling Merchant/api|format=json}}</pre>
+   <p>
+    {"items":[{"use":"Variety of rewards, see page.","quantity":"1","name":"Menaphite gift offering (small)","cost":100000},{"use":"Variety of rewards, see page.","quantity":"1","name":"Menaphite gift offering (small)","cost":100000},{"use":"Insta-kill majority of all [[monster]]s.","quantity":"1","name":"Deathtouched dart","cost":5000000}],"timestamp":1717111064}
+   </p>
+   <h2>
+    <span class="mw-headline" id="Fetching_this_via_API">
+     Fetching this via API
+    </span>
+   </h2>
+   <p>
+    You'll want to query the wiki's API - send a GET request to
+    <a class="free" href="https://runescape.wiki/api.php">
+     https://runescape.wiki/api.php
+    </a>
+    with query
+   </p>
+   <pre>format=json
+action=parse
+prop=text
+disablelimitreport=1
+text={{Travelling%20Merchant/api}}
+</pre>
+   <p>
+    With text equal to the template usage you want. Examples:
+   </p>
+   <ul>
+    <li>
+     Full, today:
+     <a class="free" href="https://runescape.wiki/api.php?format=json&amp;action=parse&amp;prop=text&amp;disablelimitreport=1&amp;text={{Travelling%20Merchant/api}}">
+      https://runescape.wiki/api.php?format=json&amp;action=parse&amp;prop=text&amp;disablelimitreport=1&amp;text={{Travelling%20Merchant/api}}
+     </a>
+    </li>
+    <li>
+     Simple, in 5 days:
+     <a class="free" href="https://runescape.wiki/api.php?format=json&amp;action=parse&amp;prop=text&amp;disablelimitreport=1&amp;text={{Travelling%20Merchant/api%7Coffset=5%7Cformat=simple}}">
+      https://runescape.wiki/api.php?format=json&amp;action=parse&amp;prop=text&amp;disablelimitreport=1&amp;text={{Travelling%20Merchant/api%7Coffset=5%7Cformat=simple}}
+     </a>
+    </li>
+    <li>
+     JSON, for yesterday:
+     <a class="free" href="https://runescape.wiki/api.php?format=json&amp;action=parse&amp;prop=text&amp;disablelimitreport=1&amp;text={{Travelling%20Merchant/api%7Coffset=-1%7Cformat=json}}">
+      https://runescape.wiki/api.php?format=json&amp;action=parse&amp;prop=text&amp;disablelimitreport=1&amp;text={{Travelling%20Merchant/api%7Coffset=-1%7Cformat=json}}
+     </a>
+    </li>
+   </ul>
+  </div>
+ </div>
+ <!-- 
+NewPP limit report
+Parsed by mediawiki‐7b5cd669d9‐85z6x
+Cached time: 20240530231744
+Cache expiry: 172800
+Reduced expiry: false
+Complications: [vary‐revision‐sha1]
+[SMW] In‐text annotation parser time: 0 seconds
+CPU time usage: 0.039 seconds
+Real time usage: 0.042 seconds
+Preprocessor visited node count: 110/1000000
+Post‐expand include size: 9678/8388608 bytes
+Template argument size: 0/8388608 bytes
+Highest expansion depth: 6/100
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 290/5000000 bytes
+Lua time usage: 0.018/10.000 seconds
+Lua memory usage: 1570976/367001600 bytes
+-->
+ <!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   14.537      1 Template:Travelling_Merchant/api/doc
+100.00%   14.537      1 -total
+ 54.94%    7.986      1 Template:Documentation
+ 27.65%    4.019      4 Template:Travelling_Merchant/api
+  4.31%    0.626      1 Template:Clear
+-->
+ <!-- Saved in parser cache with key en_rswiki:pcache:idhash:683024-0!canonical and timestamp 20240530231744 and revision id 26215239. Rendering was triggered because: api-parse
+ -->
+</div>
