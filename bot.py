@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
-from datetime import datetime, timedelta  # Import timedelta
+from datetime import datetime, timedelta
 import asyncio
 
 load_dotenv()
@@ -39,6 +39,31 @@ async def ping_user(ctx):
 async def time(ctx):
     current_date = datetime.now()
     await ctx.send(current_date.strftime("%H:%M"))
+
+
+@bot.command()
+async def event(ctx):
+    now = datetime.now()
+    next_event_time, next_event = find_next_special_event(now)
+    next_next_event_time, next_next_event = find_next_special_event(next_event_time + timedelta(minutes=1))
+    time_to_next_next_event = next_next_event_time - now
+
+    # Convert timedelta to a readable format
+    hours, remainder = divmod(time_to_next_next_event.total_seconds(), 3600)
+    minutes, _ = divmod(remainder, 60)
+
+    embed = discord.Embed(
+        title="Upcoming Special Events",
+        color=discord.Color.green()  # Green color
+    )
+    embed.add_field(name="Next Special Event",
+                    value=f"**{next_event[0]}** is happening at **{next_event_time.strftime('%H:%M')}**.",
+                    inline=False)
+    embed.add_field(name="Following Special Event",
+                    value=f"**{next_next_event[0]}** will happen in **{int(hours)}h {int(minutes)}m** at **{next_next_event_time.strftime('%H:%M')}**.",
+                    inline=False)
+
+    await ctx.send(embed=embed)
 
 
 # Define the provided rotation with all events in UK time zone
@@ -97,20 +122,50 @@ async def background_task():
     your_id = "522493027424403456"
     channel_id = "1245476506688425994"
     channel = bot.get_channel(int(channel_id))
+    notified_events = set()  # Set to keep track of notified event times
+
     while not bot.is_closed():
         now = datetime.now()
         next_event_time, next_event = find_next_special_event(now)
         # Calculate the time difference to the next event
         time_to_next_event = next_event_time - now
-        # If the next event is within the next 5 minutes, send a reminder
-        if 0 < time_to_next_event.total_seconds() <= 300:
-            await channel.send(
-                f"<@{your_id}>, **a special event {next_event[0]} is happening in 5 minutes! double check here :** https://runescape.wiki/w/Wilderness_Flash_Events"
+
+        # If the next event is within the next 5 minutes and not already notified, send a reminder
+        if 0 < time_to_next_event.total_seconds() <= 300 and next_event_time not in notified_events:
+            embed = discord.Embed(
+                title="Special Event Reminder",
+                description=f"<@{your_id}>, **a special event** **{next_event[0]}** **is happening in 5 minutes!**",
+                color=discord.Color.green()  # Green color
             )
-            await asyncio.sleep(60)  # Wait for a minute before checking again
+            embed.add_field(name="Check Details",
+                            value="[Double check here](https://runescape.wiki/w/Wilderness_Flash_Events)",
+                            inline=False)
+            await channel.send(embed=embed)
+            notified_events.add(next_event_time)  # Add the event time to the notified set
+
+            # Wait until the event has passed to reset the notification
+            while datetime.now() < next_event_time + timedelta(minutes=1):
+                await asyncio.sleep(10)
+
+            # Find the next special event after the current one
+            new_now = datetime.now()
+            next_next_event_time, next_next_event = find_next_special_event(new_now)
+            time_to_next_next_event = next_next_event_time - new_now
+
+            # Convert timedelta to a readable format
+            hours, remainder = divmod(time_to_next_next_event.total_seconds(), 3600)
+            minutes, _ = divmod(remainder, 60)
+
+            embed = discord.Embed(
+                title="Upcoming Special Event",
+                color=discord.Color.green()  # Green color
+            )
+            embed.add_field(name="Next Special Event",
+                            value=f"**{next_next_event[0]}** will happen in **{int(hours)}h {int(minutes)}m** at **{next_next_event_time.strftime('%H:%M')}**.",
+                            inline=False)
+            await channel.send(embed=embed)
         else:
-            await asyncio.sleep(60)  # Check every minute
-        await asyncio.sleep(1)
+            await asyncio.sleep(10)  # Check every 10 seconds for accuracy
 
 
 if __name__ == "__main__":

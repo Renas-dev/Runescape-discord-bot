@@ -165,5 +165,5 @@ cython_debug/
 .env
 .venv/
 .idea/
-bot_test.py
-live_bot_test.py
+.bot_test.py
+.live_bot_test.py
